@@ -36,7 +36,7 @@ public protocol SBApiTokenResetListener
     func OnTokenReset()
 }
 
-public typealias ErrorDispatcher = (Int, JsonWrapper) -> String
+public typealias ErrorDispatcher = (URL?, Int, JsonWrapper) -> String
 public typealias ErrorExtraDispatcher = (Int, JsonWrapper) -> [String: Any]
 
 public enum HTTPMethod: String
@@ -45,6 +45,7 @@ public enum HTTPMethod: String
 }
 
 public let ERROR_MESSAGE_KEY = "ERROR_MESSAGE_KEY"
+public let ERROR_URL_KEY = "ERROR_URL_KEY"
 
 public protocol SBApiClientProtocol
 {

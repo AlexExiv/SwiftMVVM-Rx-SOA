@@ -119,11 +119,11 @@ class SBAlamofireApiClient: SBApiClientProtocol
                                     //self_.userInfoProvider?.ResetLogin()
                                 }
                                 
-                                subs( .failure( self_.ParseError( error: response.error, status: response.response?.statusCode ?? 0, json: result ) ) );
+                                subs( .failure( self_.ParseError( url: sURL, error: response.error, status: response.response?.statusCode ?? 0, json: result ) ) );
                             }
                             
                         case .failure( let error ):
-                            subs( .failure( self_.ParseError( error: error, status: response.response?.statusCode ?? 0, json: nil ) ) )
+                            subs( .failure( self_.ParseError( url: sURL, error: error, status: response.response?.statusCode ?? 0, json: nil ) ) )
                         }
                         
                         _debugMess += "\n\n"
@@ -178,7 +178,8 @@ class SBAlamofireApiClient: SBApiClientProtocol
             if let self_ = self
             {
                 self_.PrintLog( "DOWNLOAD URL - \(path)" );
-                let downloadReq = AF.download( path.starts( with: "http://" ) || path.starts( with: "https://" ) ? path : "\(self_.baseURL)/\(path)", method: .get, parameters: params, headers: headers?.asHTTPHeaders() )
+                let fullUrl = path.starts( with: "http://" ) || path.starts( with: "https://" ) ? path : "\(self_.baseURL)/\(path)"
+                let downloadReq = AF.download( fullUrl, method: .get, parameters: params, headers: headers?.asHTTPHeaders() )
                 {
                     (_, _)  in
                     return ( destinationURL: docPath, options: [.removePreviousFile, .createIntermediateDirectories] )
@@ -203,7 +204,7 @@ class SBAlamofireApiClient: SBApiClientProtocol
                         do
                         {
                             let rJSON = try JSONSerialization.jsonObject( with: response.value!, options: JSONSerialization.ReadingOptions( rawValue: 0 ) );
-                            subs( .failure( self_.ParseError( error: response.error, status: response.response?.statusCode ?? 0, json: rJSON ) ) )
+                            subs( .failure( self_.ParseError( url: fullUrl, error: response.error, status: response.response?.statusCode ?? 0, json: rJSON ) ) )
                         }
                         catch
                         {
@@ -318,7 +319,7 @@ class SBAlamofireApiClient: SBApiClientProtocol
                                 self_.resetListeners.forEach { $0.OnTokenReset() }
                             }
                             
-                            subs( .failure( self_.ParseError( error: response.error, status: response.response?.statusCode ?? 0, json: response.value ) ) );
+                            subs( .failure( self_.ParseError( url: sURL, error: response.error, status: response.response?.statusCode ?? 0, json: response.value ) ) );
                         }
                     }
                
@@ -330,11 +331,12 @@ class SBAlamofireApiClient: SBApiClientProtocol
     }
     
     //MARK: - COMMON
-    func ParseError( error: Error?, status: Int, json: Any? ) -> NSError
+    func ParseError( url: String, error: Error?, status: Int, json: Any? ) -> NSError
     {
         var message = "";
         var errStatus = 0;
         var userInfo = [String: Any]()
+        let urlObj = URL( string: url )
         
         if let error = error
         {
@@ -356,7 +358,7 @@ class SBAlamofireApiClient: SBApiClientProtocol
             errStatus = status
             if let dispatcher = errorDispatcher, let json = json
             {
-                message = dispatcher( status, JsonWrapper( result: json ) )
+                message = dispatcher( urlObj, status, JsonWrapper( result: json ) )
             }
             else
             {
@@ -364,6 +366,7 @@ class SBAlamofireApiClient: SBApiClientProtocol
             }
             
             userInfo[ERROR_MESSAGE_KEY] = message
+            userInfo[ERROR_URL_KEY] = urlObj
             
             if let dispatcher = errorExtraDispatcher, let json = json
             {
