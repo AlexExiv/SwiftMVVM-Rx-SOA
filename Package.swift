@@ -10,8 +10,12 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "BaseMVVM",
+            name: "SwiftMVVM-Rx-SOA",
             targets: ["BaseMVVM"]
+        ),
+        .library(
+            name: "SwiftSOA-API",
+            targets: ["SwiftSOAAPI"]
         )
     ],
     dependencies: [
@@ -22,6 +26,7 @@ let package = Package(
         .target(
             name: "BaseMVVM",
             dependencies: [
+                "SwiftSOAAPI",
                 .product(name: "RxSwift", package: "RxSwift"),
                 .product(name: "RxCocoa", package: "RxSwift"),
                 .product(name: "RxRelay", package: "RxSwift"),
@@ -30,7 +35,9 @@ let package = Package(
             path: "BaseMVVM",
             exclude: [
                 "BaseMVVM.h",
-                "Info.plist"
+                "Info.plist",
+                "Ext",
+                "Repository"
             ],
             resources: [
                 .process("UI/Preloader.storyboard"),
@@ -45,6 +52,27 @@ let package = Package(
             path: "BaseMVVMTests",
             exclude: [
                 "Info.plist"
+            ]
+        ),
+        .target(
+            name: "SwiftSOAAPI",
+            dependencies: [
+                .product(name: "RxSwift", package: "RxSwift"),
+                .product(name: "RxCocoa", package: "RxSwift"),
+                .product(name: "RxRelay", package: "RxSwift"),
+                .product(name: "Alamofire", package: "Alamofire")
+            ],
+            path: "BaseMVVM",
+            exclude: [
+                "BaseMVVM.h",
+                "Info.plist"
+            ],
+            sources: [
+                "Ext",
+                "Repository"
+            ],
+            resources: [
+                .process("PrivacyInfo.xcprivacy")
             ]
         )
     ],

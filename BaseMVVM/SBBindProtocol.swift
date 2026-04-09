@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import RxRelay
+import SwiftSOAAPI
 
 public protocol SBBindProtocol
 {
