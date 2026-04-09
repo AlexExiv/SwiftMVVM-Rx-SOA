@@ -6,7 +6,7 @@
 //  Copyright © 2021 ALEXEY ABDULIN. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import BaseMVVM
 
 class MainController: SBBaseTableController<MainViewModel>

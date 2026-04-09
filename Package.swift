@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "SwiftMVVM-Rx-SOA",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v15)
     ],

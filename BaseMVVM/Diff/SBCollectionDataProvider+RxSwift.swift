@@ -6,7 +6,7 @@
 //  Copyright © 2022 ALEXEY ABDULIN. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import RxSwift
 
 public extension ObservableType

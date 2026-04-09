@@ -19,7 +19,3 @@ target 'BaseMVVMTests' do
     pod 'RxBlocking', '~> 6.7.1'
     pod 'RxTest', '~> 6.7.1'
 end
-
-target 'Examples' do
-    shared_pods
-end
