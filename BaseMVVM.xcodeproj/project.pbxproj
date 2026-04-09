@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		35C0A0012F87C7E1008117B0 /* BaseMVVM in Frameworks */ = {isa = PBXBuildFile; productRef = 35C0A0002F87C7E1008117B0 /* BaseMVVM */; };
+		35C0A0012F87C7E1008117B0 /* SwiftMVVM-Rx-SOA in Frameworks */ = {isa = PBXBuildFile; productRef = 35C0A0002F87C7E1008117B0 /* SwiftMVVM-Rx-SOA */; };
 		35C0A0032F87C7E1008117B0 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 35C0A0022F87C7E1008117B0 /* RxRelay */; };
 		35C0A0052F87C7E1008117B0 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 35C0A0042F87C7E1008117B0 /* RxSwift */; };
 		50B7EA79C2D2A151AA95D941 /* Pods_BaseMVVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC73F19C218490FB9ADB4812 /* Pods_BaseMVVM.framework */; };
@@ -85,6 +85,7 @@
 		FB692F172617325700397E55 /* SBIBaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB692F162617325700397E55 /* SBIBaseVM.swift */; };
 		FB692F1D2617341200397E55 /* CommonComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB692F1C2617341200397E55 /* CommonComponents.swift */; };
 		FB692F232617344B00397E55 /* UserServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB692F222617344B00397E55 /* UserServiceProtocol.swift */; };
+		FB86D13B2F87B4F800B187FE /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = FB86D13A2F87B4F800B187FE /* RxCocoa */; };
 		FBDA8EEB287A02B2002A15EF /* CloseTop.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBDA8EEA287A02B2002A15EF /* CloseTop.storyboard */; };
 		FBDA8EEE287A0380002A15EF /* CloseTopController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDA8EED287A0380002A15EF /* CloseTopController.swift */; };
 		FBDA8F06287D905F002A15EF /* SwiftSOA-API.podspec in Resources */ = {isa = PBXBuildFile; fileRef = FBDA8F05287D905F002A15EF /* SwiftSOA-API.podspec */; };
@@ -199,7 +200,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35C0A0012F87C7E1008117B0 /* BaseMVVM in Frameworks */,
+				35C0A0012F87C7E1008117B0 /* SwiftMVVM-Rx-SOA in Frameworks */,
+				FB86D13B2F87B4F800B187FE /* RxCocoa in Frameworks */,
 				35C0A0032F87C7E1008117B0 /* RxRelay in Frameworks */,
 				35C0A0052F87C7E1008117B0 /* RxSwift in Frameworks */,
 			);
@@ -492,9 +494,10 @@
 			);
 			name = Examples;
 			packageProductDependencies = (
-				35C0A0002F87C7E1008117B0 /* BaseMVVM */,
+				35C0A0002F87C7E1008117B0 /* SwiftMVVM-Rx-SOA */,
 				35C0A0022F87C7E1008117B0 /* RxRelay */,
 				35C0A0042F87C7E1008117B0 /* RxSwift */,
+				FB86D13A2F87B4F800B187FE /* RxCocoa */,
 			);
 			productName = Examples;
 			productReference = FB01234B246BBF740020C7A9 /* Examples.app */;
@@ -651,9 +654,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BaseMVVMTests/Pods-BaseMVVMTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BaseMVVMTests/Pods-BaseMVVMTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1129,10 +1136,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		35C0A0002F87C7E1008117B0 /* BaseMVVM */ = {
+		35C0A0002F87C7E1008117B0 /* SwiftMVVM-Rx-SOA */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 35C0A0062F87C7E1008117B0 /* XCLocalSwiftPackageReference "." */;
-			productName = BaseMVVM;
+			productName = "SwiftMVVM-Rx-SOA";
 		};
 		35C0A0022F87C7E1008117B0 /* RxRelay */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1143,6 +1150,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 35C0A0072F87C7E1008117B0 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		FB86D13A2F87B4F800B187FE /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35C0A0072F87C7E1008117B0 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
