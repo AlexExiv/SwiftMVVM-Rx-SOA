@@ -16,9 +16,18 @@ public protocol SBPreloaderControllerProtocol
 
 open class SBPreloaderController: UIViewController, SBPreloaderControllerProtocol
 {
+    private static var resourceBundle: Bundle
+    {
+#if SWIFT_PACKAGE
+        return Bundle.module
+#else
+        return Bundle( for: Self.self )
+#endif
+    }
+    
     static func Create() -> SBPreloaderController
     {
-        return UIStoryboard( name: "Preloader", bundle: Bundle( for: Self.self ) ).instantiateViewController( withIdentifier: "SBPreloaderController" ) as! SBPreloaderController;
+        return UIStoryboard( name: "Preloader", bundle: resourceBundle ).instantiateViewController( withIdentifier: "SBPreloaderController" ) as! SBPreloaderController;
     }
     
     @IBOutlet weak var titleLab: UILabel!

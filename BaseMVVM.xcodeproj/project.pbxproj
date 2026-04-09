@@ -211,6 +211,7 @@
 		FB692F162617325700397E55 /* SBIBaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBIBaseVM.swift; sourceTree = "<group>"; };
 		FB692F1C2617341200397E55 /* CommonComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonComponents.swift; sourceTree = "<group>"; };
 		FB692F222617344B00397E55 /* UserServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceProtocol.swift; sourceTree = "<group>"; };
+		FB7F923A2F87A31B008117B0 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		FBDA8EEA287A02B2002A15EF /* CloseTop.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CloseTop.storyboard; sourceTree = "<group>"; };
 		FBDA8EED287A0380002A15EF /* CloseTopController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseTopController.swift; sourceTree = "<group>"; };
 		FBDA8F05287D905F002A15EF /* SwiftSOA-API.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "SwiftSOA-API.podspec"; sourceTree = SOURCE_ROOT; };
@@ -296,6 +297,7 @@
 		FB061ADC230D39B200202907 = {
 			isa = PBXGroup;
 			children = (
+				FB7F923A2F87A31B008117B0 /* Package.swift */,
 				FB061AE8230D39B300202907 /* BaseMVVM */,
 				FB061AF3230D39B300202907 /* BaseMVVMTests */,
 				FB01234C246BBF740020C7A9 /* Examples */,
@@ -648,9 +650,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Examples/Pods-Examples-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Examples/Pods-Examples-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -687,9 +693,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BaseMVVMTests/Pods-BaseMVVMTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BaseMVVMTests/Pods-BaseMVVMTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
