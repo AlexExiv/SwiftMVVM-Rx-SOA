@@ -11,6 +11,7 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
+@MainActor
 public protocol SBBindUIProtocol: SBBindProtocol
 {
     associatedtype ViewModel: SBViewModel
@@ -401,4 +402,3 @@ public extension SBBindUIProtocol where Self: UIViewController
             .disposed( by: dispBag )
     }
 }
-

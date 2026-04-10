@@ -8,12 +8,14 @@
 
 import UIKit
 
+@MainActor
 public protocol SBPreloaderControllerProtocol
 {
     func Show( title: String )
     func Hide()
 }
 
+@MainActor
 open class SBPreloaderController: UIViewController, SBPreloaderControllerProtocol
 {
     private static var resourceBundle: Bundle

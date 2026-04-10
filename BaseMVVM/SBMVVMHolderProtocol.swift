@@ -9,11 +9,13 @@
 import UIKit
 import RxSwift
 
+@MainActor
 public protocol SBMVVMHolderProtocol
 {
     func BindVM( vm: SBViewModel )
 }
 
+@MainActor
 public protocol SBMVVMHolderBase
 {
     associatedtype ViewModel: SBViewModel

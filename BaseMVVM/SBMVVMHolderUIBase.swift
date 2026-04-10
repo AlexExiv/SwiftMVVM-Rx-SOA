@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxRelay
 
+@MainActor
 public protocol SBMVVMHolderUIBase: SBMVVMHolderBase, SBBindUIProtocol
 {
     var preloaderView: SBPreloaderView! { get }

@@ -8,6 +8,7 @@
 
 import UIKit
 
+@MainActor
 open class SBNavigationController: UINavigationController, UINavigationControllerDelegate, SBMVVMHolderProtocol
 {
     @objc

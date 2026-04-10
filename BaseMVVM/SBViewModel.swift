@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxRelay
 
+@MainActor
 open class SBViewModel: SBBindProtocol
 {
     public enum Message
@@ -125,6 +126,7 @@ open class SBViewModel: SBBindProtocol
     
 }
 
+@MainActor
 public protocol SBTabViewModel
 {
     var tabViewModelsMap: [Int: SBViewModel]? { get }
@@ -137,6 +139,7 @@ public extension SBTabViewModel
     var tabViewModelsArray: [SBViewModel]? { nil }
 }
 
+@MainActor
 public protocol SBPagesViewModel
 {
     var pageViewModelsArray: [SBViewModel] { get }

@@ -11,6 +11,7 @@ import RxSwift
 import RxRelay
 import BaseMVVM
 
+@MainActor
 class ReverseController: UITableViewController
 {
     let rxItems = BehaviorRelay<[(String, [Item])]>( value: [] )

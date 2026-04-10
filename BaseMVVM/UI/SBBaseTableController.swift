@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxRelay
 
+@MainActor
 open class SBBaseTableController<VM: SBViewModel>: UITableViewController, SBMVVMHolderProtocol, SBMVVMHolderUIBase
 {
     public var preloaderView: SBPreloaderView!

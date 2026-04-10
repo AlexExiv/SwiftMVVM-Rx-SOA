@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxRelay
 
+@MainActor
 open class SBBasePagesController<VM: SBViewModel & SBPagesViewModel>: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, SBMVVMHolderProtocol, SBMVVMHolderUIBase
 {
     public var preloaderView: SBPreloaderView!

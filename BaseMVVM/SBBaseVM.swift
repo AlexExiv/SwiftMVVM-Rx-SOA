@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 
+@MainActor
 open class SBBaseVM
 {
     public private(set) weak var parent: SBViewModel?

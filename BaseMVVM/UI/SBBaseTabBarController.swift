@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 
+@MainActor
 open class SBBaseTabBarController<VM: SBViewModel & SBTabViewModel>: UITabBarController, SBMVVMHolderProtocol, SBMVVMHolderUIBase
 {
     public var preloaderView: SBPreloaderView!

@@ -29,6 +29,7 @@ struct Item: SBDiffEntity
     }
 }
 
+@MainActor
 class DiffController: UITableViewController
 {
     let allItems = [[Item( id: 1, value: "Test 1" ),
@@ -213,4 +214,3 @@ class DiffController: UITableViewController
         }
     }
 }
-
