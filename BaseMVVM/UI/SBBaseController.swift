@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 
 @MainActor
-open class SBBaseController<VM: SBViewModel>: UIViewController, SBMVVMHolderProtocol, SBMVVMHolderUIBase
+open class SBBaseController<VM: SBViewModel>: UIViewController, @MainActor SBMVVMHolderProtocol, @MainActor SBMVVMHolderUIBase
 {
     public var preloaderView: SBPreloaderView!
     public var screenPreloaderCntrl: SBPreloaderControllerProtocol!

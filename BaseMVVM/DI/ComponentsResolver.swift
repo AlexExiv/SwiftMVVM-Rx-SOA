@@ -10,9 +10,9 @@ import Foundation
 
 public typealias ComponentFactory<Component> = () -> Component
 
-public class ComponentsResolver
+public final class ComponentsResolver
 {
-    public static let shared = ComponentsResolver()
+    nonisolated(unsafe) public static let shared = ComponentsResolver()
     
     private var factories = [String: Any]()
     private var components = [String: Any]()

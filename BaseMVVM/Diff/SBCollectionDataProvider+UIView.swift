@@ -8,6 +8,7 @@
 
 import UIKit
 
+@MainActor
 extension SBCollectionDataProvider
 {
     public func Dispatch( newItems: CollectionSection, to: UITableView, change: UITableView.RowAnimation = .fade, insert: UITableView.RowAnimation = .left, delete: UITableView.RowAnimation = .right, all: UITableView.RowAnimation? = nil )
@@ -174,6 +175,7 @@ extension SBCollectionDataProvider
 }
 
 
+@MainActor
 extension SBCollectionDataProvider
 {
     public func Dispatch( newItems: CollectionSection, to: UICollectionView )

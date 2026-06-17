@@ -132,9 +132,9 @@ s.source_files  = 'BaseMVVM', 'BaseMVVM/**/*.{h,m,swift}'
 s.requires_arc = true
 
 # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-s.dependency "RxSwift", "~> 6.7.1"
-s.dependency "RxCocoa", "~> 6.7.1"
-s.dependency "RxRelay", "~> 6.7.1"
+s.dependency "RxSwift", "~> 6.10.2"
+s.dependency "RxCocoa", "~> 6.10.2"
+s.dependency "RxRelay", "~> 6.10.2"
 s.dependency "Alamofire", "~> 5.10.1"
 
 s.resource_bundles = { "SwiftMVVM-Rx-SOA" => ["BaseMVVM/PrivacyInfo.xcprivacy"] }

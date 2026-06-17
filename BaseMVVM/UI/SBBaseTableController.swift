@@ -11,7 +11,7 @@ import RxSwift
 import RxRelay
 
 @MainActor
-open class SBBaseTableController<VM: SBViewModel>: UITableViewController, SBMVVMHolderProtocol, SBMVVMHolderUIBase
+open class SBBaseTableController<VM: SBViewModel>: UITableViewController, @MainActor SBMVVMHolderProtocol, @MainActor SBMVVMHolderUIBase
 {
     public var preloaderView: SBPreloaderView!
     public var screenPreloaderCntrl: SBPreloaderControllerProtocol!

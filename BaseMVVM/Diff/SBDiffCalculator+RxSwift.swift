@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 
+@MainActor
 public extension SBDiffCalculator
 {
     static func RxCalc( oldItems: SBDiffEntitySection, newItems: SBDiffEntitySection ) -> Single<SBDiffCalculator>
@@ -34,6 +35,7 @@ public extension SBDiffCalculator
     }
 }
 
+@MainActor
 public extension Single where Element == SBDiffCalculator
 {
     func bind( to: UITableView, change: UITableView.RowAnimation = .fade, insert: UITableView.RowAnimation = .left, delete: UITableView.RowAnimation = .right, all: UITableView.RowAnimation? = nil ) -> Disposable
@@ -47,6 +49,7 @@ public extension Single where Element == SBDiffCalculator
     }
 }
 
+@MainActor
 public extension ObservableType where Element == SBDiffCalculator
 {
     func bind( to: UITableView, change: UITableView.RowAnimation = .fade, insert: UITableView.RowAnimation = .left, delete: UITableView.RowAnimation = .right, all: UITableView.RowAnimation? = nil ) -> Disposable
@@ -60,6 +63,7 @@ public extension ObservableType where Element == SBDiffCalculator
     }
 }
 
+@MainActor
 public extension SBDiffCalculator
 {
     static func BindUpdates<O: ObservableType, E: SBDiffEntity>( from: O, table: UITableView, change: UITableView.RowAnimation = .fade, insert: UITableView.RowAnimation = .left, delete: UITableView.RowAnimation = .right, all: UITableView.RowAnimation? = nil, scheduler: SchedulerType, dispBag: DisposeBag ) where O.Element == Array<E>

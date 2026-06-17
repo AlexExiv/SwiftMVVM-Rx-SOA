@@ -12,7 +12,7 @@ import RxRelay
 import RxCocoa
 
 @MainActor
-public protocol SBBindUIProtocol: SBBindProtocol
+public protocol SBBindUIProtocol: @MainActor SBBindProtocol
 {
     associatedtype ViewModel: SBViewModel
     var viewModel: ViewModel! { get }

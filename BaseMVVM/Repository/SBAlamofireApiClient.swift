@@ -54,17 +54,17 @@ class SBAlamofireApiClient: SBApiClientProtocol
         return RxJSON( path: path, method: .get, params: nil )
     }
     
-    func RxJSON( path: String, params: [String: Any]? ) -> Single<JsonWrapper>
+    func RxJSON( path: String, params: ClienParams? ) -> Single<JsonWrapper>
     {
         return RxJSON( path: path, method: .get, params: params, headers: nil )
     }
     
-    func RxJSON( path: String, method: HTTPMethod, params: [String: Any]? ) -> Single<JsonWrapper>
+    func RxJSON( path: String, method: HTTPMethod, params: ClienParams? ) -> Single<JsonWrapper>
     {
         return RxJSON( path: path, method: method, params: params, headers: nil )
     }
     
-    func RxJSON( path: String, method: HTTPMethod, params: [String : Any]?, headers: [String: String]? ) -> Single<JsonWrapper>
+    func RxJSON( path: String, method: HTTPMethod, params: ClienParams?, headers: [String: String]? ) -> Single<JsonWrapper>
     {
         let _method = method == .deleteBody ? .delete : Alamofire.HTTPMethod( rawValue: method.rawValue )
         return Single.create( subscribe:
@@ -96,20 +96,31 @@ class SBAlamofireApiClient: SBApiClientProtocol
 
                 let encoding = (method == .get || method == .delete) ? URLEncoding.default : self_.defaultEncoding
                 let rReq = AF.request( sURL, method: _method, parameters: params, encoding: encoding, headers: rFullHeaders.asHTTPHeaders() )
-                    .responseJSON( completionHandler:
+                    .responseData( completionHandler:
                     {
                         (response) in
 
                         var _debugMess = "\n\nEND REQUEST \nMETHOD: \(method.rawValue) \nURL: \(sURL) \nRESPONSE CODE: \(response.response?.statusCode ?? 0)"
+                        let result = self_.ParseJSON( data: response.data )
 
                         switch response.result
                         {
-                        case .success( let result ):
-                            _debugMess += "\nRESPONSE BODY: \(result)"
+                        case .success:
+                            if let result = result
+                            {
+                                _debugMess += "\nRESPONSE BODY: \(result)"
+                            }
                             
                             if 200..<400 ~= (response.response?.statusCode ?? 0)
                             {
-                                subs( .success( JsonWrapper( result: result ) ) );
+                                if let result = result
+                                {
+                                    subs( .success( JsonWrapper( result: result ) ) );
+                                }
+                                else
+                                {
+                                    subs( .failure( self_.ParseError( url: sURL, error: response.error, status: response.response?.statusCode ?? 0, json: nil ) ) )
+                                }
                             }
                             else
                             {
@@ -146,12 +157,12 @@ class SBAlamofireApiClient: SBApiClientProtocol
         return RxDownload( path: path, store: store, params: nil )
     }
     
-    func RxDownload( path: String, store: String?, params: [String: Any]? ) -> Single<URL?>
+    func RxDownload( path: String, store: String?, params: ClienParams? ) -> Single<URL?>
     {
         return RxDownload( path: path, store: store, params: params, headers: nil )
     }
     
-    func RxDownload( path: String, store: String?, params: [String: Any]?, headers: [String: String]? ) -> Single<URL?>
+    func RxDownload( path: String, store: String?, params: ClienParams?, headers: [String: String]? ) -> Single<URL?>
     {
         if path.isEmpty
         {
@@ -165,10 +176,11 @@ class SBAlamofireApiClient: SBApiClientProtocol
         }
         docPath.appendPathComponent( path.urlPath )
         docPath.appendPathComponent( path.lastURLComponent )
+        let destinationURL = docPath
         
-        if FileManager.default.fileExists( atPath: docPath.path )
+        if FileManager.default.fileExists( atPath: destinationURL.path )
         {
-            return Single.just( docPath );
+            return Single.just( destinationURL );
         }
         
         return Single.create( subscribe:
@@ -179,11 +191,12 @@ class SBAlamofireApiClient: SBApiClientProtocol
             {
                 self_.PrintLog( "DOWNLOAD URL - \(path)" );
                 let fullUrl = path.starts( with: "http://" ) || path.starts( with: "https://" ) ? path : "\(self_.baseURL)/\(path)"
-                let downloadReq = AF.download( fullUrl, method: .get, parameters: params, headers: headers?.asHTTPHeaders() )
+                let destination: DownloadRequest.Destination =
                 {
-                    (_, _)  in
-                    return ( destinationURL: docPath, options: [.removePreviousFile, .createIntermediateDirectories] )
+                    _, _ in
+                    return ( destinationURL, [.removePreviousFile, .createIntermediateDirectories] )
                 }
+                let downloadReq = AF.download( fullUrl, method: .get, parameters: params, headers: headers?.asHTTPHeaders(), to: destination )
                 .responseData( completionHandler:
                 {
                     ( response ) in
@@ -196,19 +209,14 @@ class SBAlamofireApiClient: SBApiClientProtocol
                     }
                     else if 200..<400 ~= response.response!.statusCode
                     {
-                        subs( .success( docPath ) );
+                        subs( .success( destinationURL ) );
                     }
                     else
                     {
                         delFile = true;
-                        do
+                        if let rJSON = self_.ParseJSON( data: response.value )
                         {
-                            let rJSON = try JSONSerialization.jsonObject( with: response.value!, options: JSONSerialization.ReadingOptions( rawValue: 0 ) );
                             subs( .failure( self_.ParseError( url: fullUrl, error: response.error, status: response.response?.statusCode ?? 0, json: rJSON ) ) )
-                        }
-                        catch
-                        {
-                            
                         }
                     }
                     
@@ -216,7 +224,7 @@ class SBAlamofireApiClient: SBApiClientProtocol
                     {
                         do
                         {
-                            try FileManager.default.removeItem( atPath: docPath.path )
+                            try FileManager.default.removeItem( atPath: destinationURL.path )
                         }
                         catch
                         {
@@ -302,15 +310,23 @@ class SBAlamofireApiClient: SBApiClientProtocol
                 
                 let urlReq = try! URLRequest( url: sURL, method: _method, headers: rFullHeaders.asHTTPHeaders() )
                 AF.upload( multipartFormData: multipartFormData, with: urlReq )
-                    .responseJSON {
+                    .responseData {
                         response in
+                        let result = self_.ParseJSON( data: response.data )
                         
-                        self_.PrintLog( "RESPONSE - \(response.value)" );
+                        self_.PrintLog( "RESPONSE - \(String( describing: result ))" );
                         
                         let iCode = response.response?.statusCode ?? 0;
                         if 200..<400 ~= iCode
                         {
-                            subs( .success( JsonWrapper( result: response.value! )  ) );
+                            if let result = result
+                            {
+                                subs( .success( JsonWrapper( result: result )  ) );
+                            }
+                            else
+                            {
+                                subs( .failure( self_.ParseError( url: sURL, error: response.error, status: iCode, json: nil ) ) );
+                            }
                         }
                         else
                         {
@@ -319,7 +335,7 @@ class SBAlamofireApiClient: SBApiClientProtocol
                                 self_.resetListeners.forEach { $0.OnTokenReset() }
                             }
                             
-                            subs( .failure( self_.ParseError( url: sURL, error: response.error, status: response.response?.statusCode ?? 0, json: response.value ) ) );
+                            subs( .failure( self_.ParseError( url: sURL, error: response.error, status: response.response?.statusCode ?? 0, json: result ) ) );
                         }
                     }
                
@@ -379,6 +395,16 @@ class SBAlamofireApiClient: SBApiClientProtocol
         }
         
         return NSError( domain: message, code: errStatus, userInfo: userInfo );
+    }
+
+    func ParseJSON( data: Data? ) -> Any?
+    {
+        guard let data = data, !data.isEmpty else
+        {
+            return nil
+        }
+        
+        return try? JSONSerialization.jsonObject( with: data, options: [] )
     }
     
     func PrintLog( _ items: Any..., separator: String = " ", terminator: String = "\n" )

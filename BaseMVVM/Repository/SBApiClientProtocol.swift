@@ -47,6 +47,8 @@ public enum HTTPMethod: String
 public let ERROR_MESSAGE_KEY = "ERROR_MESSAGE_KEY"
 public let ERROR_URL_KEY = "ERROR_URL_KEY"
 
+public typealias ClienParams = [String: any Any & Sendable]
+
 public protocol SBApiClientProtocol
 {
     var resetTokenCodes: [Int] { get set }
@@ -57,15 +59,15 @@ public protocol SBApiClientProtocol
     func Register( listener: SBApiTokenResetListener )
     
     func RxJSON( path: String ) -> Single<JsonWrapper>
-    func RxJSON( path: String, params: [String: Any]? ) -> Single<JsonWrapper>
-    func RxJSON( path: String, method: HTTPMethod, params: [String: Any]? ) -> Single<JsonWrapper>
-    func RxJSON( path: String, method: HTTPMethod, params: [String: Any]?, headers: [String: String]? ) -> Single<JsonWrapper>
+    func RxJSON( path: String, params: ClienParams? ) -> Single<JsonWrapper>
+    func RxJSON( path: String, method: HTTPMethod, params: ClienParams? ) -> Single<JsonWrapper>
+    func RxJSON( path: String, method: HTTPMethod, params: ClienParams?, headers: [String: String]? ) -> Single<JsonWrapper>
     
     /// Download the resource from the specified path
     /// - Parameter path: path to the resource can be realtive and absolute.
     func RxDownload( path: String, store: String? ) -> Single<URL?>
-    func RxDownload( path: String, store: String?, params: [String: Any]? ) -> Single<URL?>
-    func RxDownload( path: String, store: String?, params: [String: Any]?, headers: [String: String]? ) -> Single<URL?>
+    func RxDownload( path: String, store: String?, params: ClienParams? ) -> Single<URL?>
+    func RxDownload( path: String, store: String?, params: ClienParams?, headers: [String: String]? ) -> Single<URL?>
     
     func RxUpload( path: String, method: HTTPMethod, datas: [Data], names: [String], fileNames: [String], mimeTypes: [String] ) -> Single<JsonWrapper>
     func RxUpload( path: String, method: HTTPMethod, datas: [Data], names: [String], fileNames: [String], mimeTypes: [String], params: [String : Any]? ) -> Single<JsonWrapper>

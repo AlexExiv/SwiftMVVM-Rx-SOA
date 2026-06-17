@@ -11,7 +11,7 @@ import RxSwift
 import RxRelay
 
 @MainActor
-open class SBViewModel: SBBindProtocol
+open class SBViewModel: @MainActor SBBindProtocol
 {
     public enum Message
     {

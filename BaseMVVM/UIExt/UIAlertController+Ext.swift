@@ -22,10 +22,10 @@ public struct AlertAction
     }
 }
 
-public let ABTN_YES = AlertAction( title: NSLocalizedString( "Yes", comment: "" ) )
-public let ABTN_RED_YES = AlertAction( title: NSLocalizedString( "Yes", comment: "" ), color: .red )
-public let ABTN_NO = AlertAction( title: NSLocalizedString( "No", comment: "" ) )
-public let ABTN_CLOSE = AlertAction( title: NSLocalizedString( "Close", comment: "" ) )
+nonisolated(unsafe) public let ABTN_YES = AlertAction( title: NSLocalizedString( "Yes", comment: "" ) )
+nonisolated(unsafe) public let ABTN_RED_YES = AlertAction( title: NSLocalizedString( "Yes", comment: "" ), color: .red )
+nonisolated(unsafe) public let ABTN_NO = AlertAction( title: NSLocalizedString( "No", comment: "" ) )
+nonisolated(unsafe) public let ABTN_CLOSE = AlertAction( title: NSLocalizedString( "Close", comment: "" ) )
 
 
 public extension UIAlertController

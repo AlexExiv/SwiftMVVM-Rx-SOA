@@ -1,4 +1,4 @@
-// swift-tools-version: 5.7
+// swift-tools-version: 6.0
 
 import PackageDescription
 
@@ -19,7 +19,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", exact: "6.7.1"),
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", exact: "6.10.2"),
         .package(url: "https://github.com/Alamofire/Alamofire.git", exact: "5.10.1")
     ],
     targets: [
@@ -76,5 +76,5 @@ let package = Package(
             ]
         )
     ],
-    swiftLanguageVersions: [.v5]
+    swiftLanguageModes: [.v6]
 )

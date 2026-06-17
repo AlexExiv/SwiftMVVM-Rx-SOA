@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 
+@MainActor
 public extension ObservableType
 {
     func bind<VM: SBDiffEntity>( to: SBArrayDataProvider<VM>, tableView: UITableView, change: UITableView.RowAnimation = .fade, insert: UITableView.RowAnimation = .left, delete: UITableView.RowAnimation = .right, all: UITableView.RowAnimation? = nil ) -> Disposable where Element == Array<VM>

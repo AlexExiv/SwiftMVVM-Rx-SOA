@@ -9,7 +9,7 @@
 import UIKit
 import BaseMVVM
 
-@UIApplicationMain
+@main
 class AppDelegate: UIResponder, UIApplicationDelegate
 {
     var window: UIWindow?

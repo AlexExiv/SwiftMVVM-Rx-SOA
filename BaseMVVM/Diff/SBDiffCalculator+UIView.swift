@@ -31,6 +31,7 @@ extension SBDiffItem
     }
 }
 
+@MainActor
 extension SBDiffCalculator
 {
     public func Dispatch( to: UITableView, change: UITableView.RowAnimation = .fade, insert: UITableView.RowAnimation = .left, delete: UITableView.RowAnimation = .right, all: UITableView.RowAnimation? = nil )
@@ -78,6 +79,7 @@ extension SBDiffCalculator
     }
 }
 
+@MainActor
 extension SBDiffCalculator
 {
     public func Dispatch( to: UICollectionView )
